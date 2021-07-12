@@ -47,9 +47,19 @@ const Register: React.FC = () => {
 
   const classes = useStyles();
 
-  const onSubmit = (data: { email: string; password: string }): void => {
+  const onSubmit = (data: {
+    first_name: string;
+    last_name: string;
+    email: string;
+    password: string;
+  }): void => {
     console.log(data);
-    reset({ email: "", password: "" });
+    reset({
+      first_name: "",
+      last_name: "",
+      email: "",
+      password: "",
+    });
   };
 
   return (
