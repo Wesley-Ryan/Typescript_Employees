@@ -95,6 +95,7 @@ const Register: React.FC = () => {
       .post("https://nexient-side.herokuapp.com/accounts/signup", newUser)
       .then((response) => {
         console.log(response.data);
+        history.push("/");
       })
       .catch((error) => {
         console.log(error);
