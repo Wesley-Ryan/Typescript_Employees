@@ -15,7 +15,7 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import ProgressDisplay from "../components/ProgressDisplay";
 import NavList from "../components/NavList";
 import EmployeeList from "../components/EmployeeList";
-
+import DashboardHeader from "../components/DashboardHeader";
 const drawerWidth = 250;
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -154,6 +154,7 @@ const Dashboard: React.FC = () => {
         </Hidden>
       </nav>
       <main className={classes.content}>
+        <DashboardHeader />
         <ul>
           {data.data?.map((employee: Employee) => (
             <EmployeeList first_name={employee.first_name} />
