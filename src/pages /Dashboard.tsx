@@ -1,6 +1,5 @@
 import { getEmployees } from "../utils/authenticatedAxios";
 import { useQuery } from "react-query";
-
 import { useState } from "react";
 import {
   AppBar,
@@ -15,6 +14,7 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 
 import ProgressDisplay from "../components/ProgressDisplay";
 import NavList from "../components/NavList";
+import EmployeeList from "../components/EmployeeList";
 
 const drawerWidth = 250;
 const useStyles = makeStyles((theme) => ({
@@ -156,7 +156,7 @@ const Dashboard: React.FC = () => {
       <main className={classes.content}>
         <ul>
           {data.data?.map((employee: Employee) => (
-            <li key={employee.id}>{employee.first_name}</li>
+            <EmployeeList first_name={employee.first_name} />
           ))}
         </ul>
       </main>
