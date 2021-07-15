@@ -50,7 +50,6 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     width: "100%",
-    border: "2px solid red",
     margin: "60px 0 0 0 ",
   },
   centered: {
@@ -166,9 +165,22 @@ const Dashboard: React.FC = () => {
       <main className={classes.content}>
         <DashboardHeader />
         <ul>
-          {data.data?.map((employee: Employee) => (
-            <EmployeeList first_name={employee.first_name} key={employee.id} />
-          ))}
+          {data.data?.map((employee: Employee) => {
+            const success = {
+              id: employee.id,
+              first_name: employee.first_name,
+              last_name: employee.last_name,
+              email: employee.email,
+              avatar: employee.avatar,
+              role_name: employee.role_name,
+              department: employee.department,
+              department_name: employee.department_name,
+              title: employee.title,
+              active: employee.active,
+            };
+
+            return <EmployeeList employee={success} key={employee.id} />;
+          })}
         </ul>
       </main>
     </div>
