@@ -83,7 +83,7 @@ const Register: React.FC = () => {
       login_attempts: 0,
       title: "",
       salary: "",
-      role: 3893,
+      role: 1328,
       role_name: "Team Member",
       department_name: dept[1],
       department: parseInt(dept[0]),
