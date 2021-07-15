@@ -1,5 +1,6 @@
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
+import { quoteOfTheday } from "../assets/quotes";
 
 const useStyles = makeStyles({
   row: {
@@ -24,7 +25,7 @@ const DashboardHeader = () => {
       <div className={classes.row}>
         <div>
           <h2>Employee Directory</h2>
-          <p>Quote of day here</p>
+          <p>{quoteOfTheday.text}</p>
         </div>
 
         <Button className={classes.button} variant="contained">

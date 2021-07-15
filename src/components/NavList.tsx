@@ -32,12 +32,12 @@ const NavList: React.FC<NavListProps> = () => {
       <List>
         {items?.map((item) => {
           return (
-            <>
-              <ListItem button key={item.id}>
+            <div key={item.id}>
+              <ListItem button>
                 <ListItemIcon>{item.icon}</ListItemIcon>
                 <ListItemText>{item.title}</ListItemText>
               </ListItem>
-            </>
+            </div>
           );
         })}
       </List>
@@ -45,12 +45,12 @@ const NavList: React.FC<NavListProps> = () => {
       <List>
         {subItems?.map((subItem) => {
           return (
-            <>
-              <ListItem button key={subItem.id}>
+            <div key={subItem.id}>
+              <ListItem button>
                 <ListItemIcon>{subItem.icon}</ListItemIcon>
                 <ListItemText>{subItem.title}</ListItemText>
               </ListItem>
-            </>
+            </div>
           );
         })}
       </List>

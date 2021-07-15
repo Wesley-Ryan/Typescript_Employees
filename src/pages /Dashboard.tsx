@@ -157,7 +157,7 @@ const Dashboard: React.FC = () => {
         <DashboardHeader />
         <ul>
           {data.data?.map((employee: Employee) => (
-            <EmployeeList first_name={employee.first_name} />
+            <EmployeeList first_name={employee.first_name} key={employee.id} />
           ))}
         </ul>
       </main>
