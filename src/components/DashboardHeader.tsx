@@ -4,12 +4,23 @@ import { quoteOfTheday } from "../assets/quotes";
 
 const useStyles = makeStyles({
   row: {
+    marginTop: "40px",
     display: "flex",
     justifyContent: "space-between",
   },
-  button: {
+  addButton: {
     margin: "10px",
     height: "50px",
+    background: "#42b883",
+    color: "#ffffff",
+  },
+  quote: { margin: "15px" },
+  button: {
+    margin: "10px",
+    height: "40px",
+    background: "#42b883",
+    color: "#ffffff",
+    width: "140px",
   },
   BtnGroup: {
     height: "75px",
@@ -19,6 +30,7 @@ const useStyles = makeStyles({
   },
   titleBox: {
     width: "70%",
+    margin: "15px",
   },
 });
 
@@ -29,20 +41,20 @@ const DashboardHeader = () => {
     <>
       <div className={classes.row}>
         <div className={classes.titleBox}>
-          <h2>Employee Directory</h2>
-          <p>{quoteOfTheday.text}</p>
+          <h1>Employee Directory</h1>
+          <p className={classes.quote}>{quoteOfTheday.text}</p>
         </div>
 
-        <Button className={classes.button} variant="contained">
+        <Button className={classes.addButton} variant="contained">
           Add new Employee
         </Button>
       </div>
       <div className={classes.BtnGroup}>
         <Button className={classes.button} variant="contained">
-          All Employees
+          Employees
         </Button>
         <Button className={classes.button} variant="contained">
-          My Team
+          Team
         </Button>
         <Button className={classes.button} variant="contained">
           Departments

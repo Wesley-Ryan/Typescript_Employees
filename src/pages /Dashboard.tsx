@@ -16,7 +16,11 @@ import ProgressDisplay from "../components/ProgressDisplay";
 import NavList from "../components/NavList";
 import EmployeeList from "../components/EmployeeList";
 import DashboardHeader from "../components/DashboardHeader";
+
+import Logo from "../assets/Logo.jpeg";
+
 const drawerWidth = 250;
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -31,8 +35,8 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("sm")]: {
       width: `calc(100% - ${drawerWidth}px)`,
       marginLeft: drawerWidth,
-      background: "#4a5680",
     },
+    background: "#ffffff",
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -120,14 +124,13 @@ const Dashboard: React.FC = () => {
           >
             <MenuIcon />
           </IconButton>
-          Employee name
+          <img src={Logo} alt="Company Logo" height="80px" />
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
         <Hidden smUp implementation="css">
           <Drawer
             container={container}
-            variant="temporary"
             anchor={theme.direction === "rtl" ? "right" : "left"}
             open={mobileOpen}
             onClose={handleDrawerToggle}
