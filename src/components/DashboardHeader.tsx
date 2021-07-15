@@ -12,8 +12,13 @@ const useStyles = makeStyles({
     height: "50px",
   },
   BtnGroup: {
-    border: "2px solid blue",
     height: "75px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  titleBox: {
+    width: "70%",
   },
 });
 
@@ -23,7 +28,7 @@ const DashboardHeader = () => {
   return (
     <>
       <div className={classes.row}>
-        <div>
+        <div className={classes.titleBox}>
           <h2>Employee Directory</h2>
           <p>{quoteOfTheday.text}</p>
         </div>
@@ -33,9 +38,15 @@ const DashboardHeader = () => {
         </Button>
       </div>
       <div className={classes.BtnGroup}>
-        <Button variant="contained">All Employees</Button>
-        <Button variant="contained">My Team</Button>
-        <Button variant="contained">Departments</Button>
+        <Button className={classes.button} variant="contained">
+          All Employees
+        </Button>
+        <Button className={classes.button} variant="contained">
+          My Team
+        </Button>
+        <Button className={classes.button} variant="contained">
+          Departments
+        </Button>
       </div>
     </>
   );
