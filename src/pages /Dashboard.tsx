@@ -122,7 +122,7 @@ const Dashboard: React.FC = () => {
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <IconButton
-            color="inherit"
+            style={{ color: `black` }}
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}

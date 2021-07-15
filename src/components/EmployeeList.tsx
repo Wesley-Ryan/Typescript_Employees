@@ -7,9 +7,9 @@ import {
   Chip,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 
+import EmployeeDetails from "./EmployeeDetails";
 const useStyles = makeStyles((theme) => ({
   container: {
     width: "95%",
@@ -139,10 +139,7 @@ const EmployeeList = ({ employee }: EmployeeListProps) => {
           </div>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget.
-          </Typography>
+          <EmployeeDetails employee={employee} />
         </ExpansionPanelDetails>
       </ExpansionPanel>
     </>
