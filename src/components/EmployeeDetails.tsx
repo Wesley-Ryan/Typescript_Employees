@@ -70,7 +70,9 @@ const EmployeeDetails: React.FC<EmployeeDetailsProps> = ({ employee }) => {
       <main className={classes.content}>
         <div className={classes.row}>
           <span className={classes.title}>Title: </span>
-          <p className={classes.info}>{employee.title}</p>
+          <p className={classes.info}>
+            {employee.title ? employee.title : "Profile not complete"}
+          </p>
         </div>
         <div className={classes.row}>
           <span className={classes.title}>Name: </span>
