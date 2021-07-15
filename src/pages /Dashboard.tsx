@@ -80,7 +80,7 @@ type Employee = {
   active: boolean;
 };
 const Dashboard: React.FC = () => {
-  const { data, isLoading } = useQuery("employees", getEmployees);
+  const { data, isLoading, isError } = useQuery("employees", getEmployees);
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -106,6 +106,13 @@ const Dashboard: React.FC = () => {
     return (
       <div>
         <h2>LOADING....</h2>
+      </div>
+    );
+  }
+  if (isError) {
+    return (
+      <div>
+        <h2>Error connecting to server. Please login again.</h2>
       </div>
     );
   }
