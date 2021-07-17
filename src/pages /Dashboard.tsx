@@ -205,7 +205,6 @@ const Dashboard: React.FC = () => {
         </Hidden>
       </nav>
       <main className={classes.content}>
-        {console.log(data)}
         <DashboardHeader />
         <ul>
           {data.data?.map((employee: Employee) => {
@@ -225,6 +224,7 @@ const Dashboard: React.FC = () => {
             return <EmployeeList employee={success} key={employee.id} />;
           })}
         </ul>
+        {console.log(data)}
       </main>
     </div>
   );

@@ -1,7 +1,7 @@
 import {
-  ExpansionPanel,
-  ExpansionPanelSummary,
-  ExpansionPanelDetails,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
   Typography,
   Avatar,
   Chip,
@@ -114,8 +114,8 @@ const EmployeeList = ({ employee }: EmployeeListProps) => {
   }
   return (
     <>
-      <ExpansionPanel className={classes.container}>
-        <ExpansionPanelSummary expandIcon={<MoreVertIcon />}>
+      <Accordion className={classes.container}>
+        <AccordionSummary expandIcon={<MoreVertIcon />}>
           <div className={classes.panel}>
             <Avatar
               src={
@@ -137,11 +137,11 @@ const EmployeeList = ({ employee }: EmployeeListProps) => {
             </Typography>
             {chip}
           </div>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
+        </AccordionSummary>
+        <AccordionDetails>
           <EmployeeDetails employee={employee} />
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
+        </AccordionDetails>
+      </Accordion>
     </>
   );
 };

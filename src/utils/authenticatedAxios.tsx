@@ -8,7 +8,7 @@ export const axiosAuth = axios.create({
 });
 
 export const getEmployees = async () => {
-  const { data } = await axiosAuth.get(`/company/admin/employees/all`);
+  const { data } = await axiosAuth.get(`/company/general/all`);
   return data;
 };
 
