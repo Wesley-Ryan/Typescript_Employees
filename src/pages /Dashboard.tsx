@@ -8,6 +8,8 @@ import {
   Hidden,
   IconButton,
   Toolbar,
+  Avatar,
+  Button,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
@@ -17,6 +19,7 @@ import EmployeeList from "../components/EmployeeList";
 import DashboardHeader from "../components/DashboardHeader";
 
 import Logo from "../assets/Logo.jpeg";
+import { useHistory } from "react-router-dom";
 
 const drawerWidth = 250;
 
@@ -58,6 +61,20 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     margin: "20px 0 0 0 ",
   },
+  titleBar: {
+    display: "flex",
+    justifyContent: "space-between",
+    width: "100%",
+  },
+  row: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  button: {
+    height: "40px",
+    margin: "15px",
+  },
 }));
 
 type Employee = {
@@ -78,8 +95,12 @@ type Employee = {
   active: boolean;
 };
 const Dashboard: React.FC = () => {
+  const history = useHistory();
   const { data, isLoading, isError } = useQuery("employees", getEmployees);
-  const { data: currentUserInfo } = useQuery("currentUser", getCurrentUser);
+  const { data: currentUserInfo, isLoading: isLoadingCurrentUser } = useQuery(
+    "currentUser",
+    getCurrentUser
+  );
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -87,10 +108,21 @@ const Dashboard: React.FC = () => {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+  const logout = () => {
+    localStorage.removeItem("MNTN_Corp");
+    history.push("/");
+  };
 
   const drawer = (
     <div>
       <div className={classes.centered}>
+        <h2>Welcome Back!</h2>
+        <div className={classes.row}>
+          <Avatar src={currentUserInfo?.user.avatar} alt="user-avatar" />
+          <p style={{ marginLeft: `5px` }}>
+            {currentUserInfo?.user.first_name}
+          </p>
+        </div>
         <ProgressDisplay val={75} />
         <p>Complete Your Profile</p>
       </div>
@@ -101,7 +133,7 @@ const Dashboard: React.FC = () => {
 
   const container = window !== undefined ? () => document.body : undefined;
 
-  if (isLoading) {
+  if (isLoadingCurrentUser || isLoading) {
     return (
       <div>
         <h2>LOADING....</h2>
@@ -130,7 +162,17 @@ const Dashboard: React.FC = () => {
           >
             <MenuIcon />
           </IconButton>
-          <img src={Logo} alt="Company Logo" height="80px" />
+          <div className={classes.titleBar}>
+            <img src={Logo} alt="Company Logo" height="80px" />
+            <Button
+              variant="contained"
+              color="secondary"
+              className={classes.button}
+              onClick={() => logout()}
+            >
+              Logout
+            </Button>
+          </div>
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
@@ -163,7 +205,6 @@ const Dashboard: React.FC = () => {
         </Hidden>
       </nav>
       <main className={classes.content}>
-        {console.log("MY CURRENT USER", currentUserInfo.user)}
         <DashboardHeader />
         <ul>
           {data.data?.map((employee: Employee) => {
