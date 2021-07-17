@@ -11,3 +11,8 @@ export const getEmployees = async () => {
   const { data } = await axiosAuth.get(`/company/admin/employees/all`);
   return data;
 };
+
+export const getCurrentUser = async () => {
+  const { data } = await axiosAuth.get(`/company/account/current`);
+  return data;
+};

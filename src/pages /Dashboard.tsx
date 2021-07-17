@@ -1,4 +1,4 @@
-import { getEmployees } from "../utils/authenticatedAxios";
+import { getEmployees, getCurrentUser } from "../utils/authenticatedAxios";
 import { useQuery } from "react-query";
 import { useState } from "react";
 import {
@@ -11,7 +11,6 @@ import {
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-
 import ProgressDisplay from "../components/ProgressDisplay";
 import NavList from "../components/NavList";
 import EmployeeList from "../components/EmployeeList";
@@ -80,6 +79,7 @@ type Employee = {
 };
 const Dashboard: React.FC = () => {
   const { data, isLoading, isError } = useQuery("employees", getEmployees);
+  const { data: currentUserInfo } = useQuery("currentUser", getCurrentUser);
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -111,7 +111,7 @@ const Dashboard: React.FC = () => {
   if (isError) {
     return (
       <div>
-        <h2>Error connecting to server. Please login again.</h2>
+        <h2>Error connecting to server. Please refresh or login again.</h2>
       </div>
     );
   }
@@ -163,6 +163,7 @@ const Dashboard: React.FC = () => {
         </Hidden>
       </nav>
       <main className={classes.content}>
+        {console.log("MY CURRENT USER", currentUserInfo.user)}
         <DashboardHeader />
         <ul>
           {data.data?.map((employee: Employee) => {

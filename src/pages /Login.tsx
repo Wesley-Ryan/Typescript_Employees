@@ -51,6 +51,7 @@ const Login: React.FC = () => {
       .post("https://nexient-side.herokuapp.com/accounts/login", data)
       .then((response) => {
         localStorage.setItem("MNTN_Corp", response.data.token);
+        console.log(response.data);
         history.push(`/dashboard/${response.data.id}`);
       })
       .catch((error) => {
