@@ -10,6 +10,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 import EmployeeDetails from "./EmployeeDetails";
+import EmployeeGeneralDetails from "./EmployeeGeneralDetails";
 const useStyles = makeStyles((theme) => ({
   container: {
     width: "95%",
@@ -54,8 +55,10 @@ type EmployeeListProps = {
     department_name: string;
     active: boolean;
   };
+  currentUserRole: number;
 };
-const EmployeeList = ({ employee }: EmployeeListProps) => {
+
+const EmployeeList = ({ employee, currentUserRole }: EmployeeListProps) => {
   const classes = useStyles();
   let chip = null;
   switch (employee.department) {
@@ -139,7 +142,12 @@ const EmployeeList = ({ employee }: EmployeeListProps) => {
           </div>
         </AccordionSummary>
         <AccordionDetails>
-          <EmployeeDetails employee={employee} />
+          {console.log("USER", currentUserRole)}
+          {currentUserRole === 1328 ? (
+            <EmployeeDetails employee={employee} />
+          ) : (
+            <EmployeeGeneralDetails employee={employee} />
+          )}
         </AccordionDetails>
       </Accordion>
     </>

@@ -205,6 +205,7 @@ const Dashboard: React.FC = () => {
         </Hidden>
       </nav>
       <main className={classes.content}>
+        {console.log("MY CURRENT USER INFO", currentUserInfo?.user.role)}
         <DashboardHeader />
         <ul>
           {data.data?.map((employee: Employee) => {
@@ -221,10 +222,15 @@ const Dashboard: React.FC = () => {
               active: employee.active,
             };
 
-            return <EmployeeList employee={success} key={employee.id} />;
+            return (
+              <EmployeeList
+                employee={success}
+                key={employee.id}
+                currentUserRole={currentUserInfo?.user.role}
+              />
+            );
           })}
         </ul>
-        {console.log(data)}
       </main>
     </div>
   );
