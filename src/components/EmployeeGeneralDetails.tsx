@@ -1,8 +1,4 @@
 import { makeStyles } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
-import { axiosAuth } from "../utils/authenticatedAxios";
-import { useHistory } from "react-router-dom";
-
 const useStyles = makeStyles((theme) => ({
   container: {
     width: "100%",
@@ -40,16 +36,9 @@ const useStyles = makeStyles((theme) => ({
     width: "200px",
     margin: "20px 20px 0 0 ",
   },
-  activateButton: {
-    height: "50px",
-    width: "200px",
-    margin: "20px 20px 0 0 ",
-    background: "#42b883",
-    color: "#ffffff",
-  },
 }));
 
-interface EmployeeDetailsProps {
+export interface EmployeeGeneralDetailsProps {
   employee: {
     id: number;
     first_name: string;
@@ -64,39 +53,10 @@ interface EmployeeDetailsProps {
   };
 }
 
-const EmployeeDetails = ({ employee }: EmployeeDetailsProps) => {
+const EmployeeGeneralDetails: React.FC<EmployeeGeneralDetailsProps> = ({
+  employee,
+}) => {
   const classes = useStyles();
-  const history = useHistory();
-
-  const deactivateUser = (id: number) => {
-    const changes = {
-      active: false,
-    };
-    axiosAuth
-      .put(`/company/account/${id}`, changes)
-      .then((response) => {
-        history.go(0);
-      })
-      .catch((error) => {
-        console.log(error.message);
-        history.go(0);
-      });
-  };
-
-  const activateUser = (id: number) => {
-    const changes = {
-      active: true,
-    };
-    axiosAuth
-      .put(`/company/account/${id}`, changes)
-      .then((response) => {
-        history.go(0);
-      })
-      .catch((error) => {
-        console.log(error.message);
-        history.go(0);
-      });
-  };
   return (
     <div className={classes.container}>
       <img
@@ -109,10 +69,6 @@ const EmployeeDetails = ({ employee }: EmployeeDetailsProps) => {
         className={classes.img}
       />
       <main className={classes.content}>
-        <div className={classes.row}>
-          <span className={classes.title}>ID: </span>
-          <p className={classes.info}>{employee.id}</p>
-        </div>
         <div className={classes.row}>
           <span className={classes.title}>Title: </span>
           <p className={classes.info}>
@@ -142,32 +98,10 @@ const EmployeeDetails = ({ employee }: EmployeeDetailsProps) => {
           <p className={classes.info}>
             {employee.active ? "Active" : "Inactive"}
           </p>
-          <span className={classes.title} style={{ marginLeft: `20px` }}>
-            {" "}
-            Locked:{" "}
-          </span>{" "}
-          <p className={classes.info}>Unlocked</p>
-        </div>
-        <div>
-          <Button
-            className={classes.deactivateButton}
-            variant="contained"
-            color="secondary"
-            onClick={() => deactivateUser(employee.id)}
-          >
-            Deactivate Account
-          </Button>
-          <Button
-            className={classes.activateButton}
-            variant="contained"
-            onClick={() => activateUser(employee.id)}
-          >
-            Activate Account
-          </Button>
         </div>
       </main>
     </div>
   );
 };
 
-export default EmployeeDetails;
+export default EmployeeGeneralDetails;

@@ -205,6 +205,7 @@ const Dashboard: React.FC = () => {
         </Hidden>
       </nav>
       <main className={classes.content}>
+        {console.log(data)}
         <DashboardHeader />
         <ul>
           {data.data?.map((employee: Employee) => {
