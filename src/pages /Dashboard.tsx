@@ -104,9 +104,20 @@ const Dashboard: React.FC = () => {
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isAllActive, setIsAllActive] = useState(true);
+  const [isTeamActive, setIsTeamActive] = useState(false);
+  const [isDeptActive, setIsDeptActive] = useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
+  };
+  const handleTeamClick = () => {
+    setIsAllActive(false);
+    setIsTeamActive(true);
+  };
+  const handleAllClick = () => {
+    setIsAllActive(true);
+    setIsTeamActive(false);
   };
   const logout = () => {
     localStorage.removeItem("MNTN_Corp");
@@ -144,6 +155,7 @@ const Dashboard: React.FC = () => {
     return (
       <div>
         <h2>Error connecting to server. Please refresh or login again.</h2>
+        {history.go(0)}
       </div>
     );
   }
@@ -205,32 +217,66 @@ const Dashboard: React.FC = () => {
         </Hidden>
       </nav>
       <main className={classes.content}>
-        {console.log("MY CURRENT USER INFO", currentUserInfo?.user.role)}
-        <DashboardHeader />
-        <ul>
-          {data.data?.map((employee: Employee) => {
-            const success = {
-              id: employee.id,
-              first_name: employee.first_name,
-              last_name: employee.last_name,
-              email: employee.email,
-              avatar: employee.avatar,
-              role_name: employee.role_name,
-              department: employee.department,
-              department_name: employee.department_name,
-              title: employee.title,
-              active: employee.active,
-            };
+        <DashboardHeader setTeam={handleTeamClick} setAll={handleAllClick} />
+        {isAllActive && (
+          <ul>
+            {data.data?.map((employee: Employee) => {
+              const success = {
+                id: employee.id,
+                first_name: employee.first_name,
+                last_name: employee.last_name,
+                email: employee.email,
+                avatar: employee.avatar,
+                role_name: employee.role_name,
+                department: employee.department,
+                department_name: employee.department_name,
+                title: employee.title,
+                active: employee.active,
+              };
 
-            return (
-              <EmployeeList
-                employee={success}
-                key={employee.id}
-                currentUserRole={currentUserInfo?.user.role}
-              />
-            );
-          })}
-        </ul>
+              return (
+                <>
+                  <EmployeeList
+                    employee={success}
+                    key={employee.id}
+                    currentUserRole={currentUserInfo?.user.role}
+                  />
+                </>
+              );
+            })}
+          </ul>
+        )}
+
+        {isTeamActive && (
+          <ul>
+            {data.data?.map((employee: Employee) => {
+              if (employee.department === currentUserInfo.user.department) {
+                const success = {
+                  id: employee.id,
+                  first_name: employee.first_name,
+                  last_name: employee.last_name,
+                  email: employee.email,
+                  avatar: employee.avatar,
+                  role_name: employee.role_name,
+                  department: employee.department,
+                  department_name: employee.department_name,
+                  title: employee.title,
+                  active: employee.active,
+                };
+
+                return (
+                  <>
+                    <EmployeeList
+                      employee={success}
+                      key={employee.id}
+                      currentUserRole={currentUserInfo?.user.role}
+                    />
+                  </>
+                );
+              }
+            })}
+          </ul>
+        )}
       </main>
     </div>
   );

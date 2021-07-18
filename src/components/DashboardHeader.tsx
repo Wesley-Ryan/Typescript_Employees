@@ -34,7 +34,12 @@ const useStyles = makeStyles({
   },
 });
 
-const DashboardHeader = () => {
+type HeaderProps = {
+  setTeam: () => void;
+  setAll: () => void;
+};
+
+const DashboardHeader = ({ setTeam, setAll }: HeaderProps) => {
   const classes = useStyles();
 
   return (
@@ -50,10 +55,18 @@ const DashboardHeader = () => {
         </Button>
       </div>
       <div className={classes.BtnGroup}>
-        <Button className={classes.button} variant="contained">
+        <Button
+          className={classes.button}
+          variant="contained"
+          onClick={() => setAll()}
+        >
           Employees
         </Button>
-        <Button className={classes.button} variant="contained">
+        <Button
+          className={classes.button}
+          variant="contained"
+          onClick={() => setTeam()}
+        >
           Team
         </Button>
         <Button className={classes.button} variant="contained">
