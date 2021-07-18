@@ -1,10 +1,11 @@
 import { Route, Switch } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/styles";
 import { createTheme } from "@material-ui/core";
+import PrivateRoute from "./utils/PrivateRoute";
 import Login from "./pages /Login";
 import Register from "./pages /Register";
 import Dashboard from "./pages /Dashboard";
-
+import AddNewEmployeeForm from "./pages /AddNewEmployeeForm";
 const theme = createTheme({
   typography: {
     fontFamily: "Lato, sans-serif",
@@ -22,9 +23,13 @@ function App() {
           <Route exact path="/signup">
             <Register />
           </Route>
-          <Route exact path="/dashboard/:id">
-            <Dashboard />
-          </Route>
+          <PrivateRoute exact path="/dashboard/:id" component={Dashboard} />
+
+          <PrivateRoute
+            exact
+            path="/admin/add-employee"
+            component={AddNewEmployeeForm}
+          />
         </Switch>
       </ThemeProvider>
     </div>

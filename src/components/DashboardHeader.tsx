@@ -1,6 +1,7 @@
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import { quoteOfTheday } from "../assets/quotes";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
   row: {
@@ -45,6 +46,10 @@ type HeaderProps = {
 
 const DashboardHeader = ({ setTeam, setAll }: HeaderProps) => {
   const classes = useStyles();
+  const history = useHistory();
+  const handleAddClick = () => {
+    history.push("/admin/add-employee");
+  };
 
   return (
     <>
@@ -59,7 +64,11 @@ const DashboardHeader = ({ setTeam, setAll }: HeaderProps) => {
           </div>
         </div>
 
-        <Button className={classes.addButton} variant="contained">
+        <Button
+          className={classes.addButton}
+          variant="contained"
+          onClick={() => handleAddClick()}
+        >
           Add new Employee
         </Button>
       </div>
