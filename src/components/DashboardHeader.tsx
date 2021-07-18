@@ -14,13 +14,17 @@ const useStyles = makeStyles({
     background: "#42b883",
     color: "#ffffff",
   },
+  quoteBox: {
+    display: "flex",
+  },
   quote: { margin: "15px" },
+  author: { margin: "35px 10px 0 0 " },
   button: {
     margin: "10px",
     height: "40px",
     background: "#42b883",
     color: "#ffffff",
-    width: "140px",
+    width: "160px",
   },
   BtnGroup: {
     height: "75px",
@@ -47,7 +51,12 @@ const DashboardHeader = ({ setTeam, setAll }: HeaderProps) => {
       <div className={classes.row}>
         <div className={classes.titleBox}>
           <h1>Employee Directory</h1>
-          <p className={classes.quote}>{quoteOfTheday.text}</p>
+          <div className={classes.quoteBox}>
+            <p className={classes.quote}>{quoteOfTheday.text}</p>
+            <span className={classes.author}>
+              -{quoteOfTheday.author ? quoteOfTheday.author : "Unknown"}
+            </span>
+          </div>
         </div>
 
         <Button className={classes.addButton} variant="contained">
@@ -68,9 +77,6 @@ const DashboardHeader = ({ setTeam, setAll }: HeaderProps) => {
           onClick={() => setTeam()}
         >
           Team
-        </Button>
-        <Button className={classes.button} variant="contained">
-          Departments
         </Button>
       </div>
     </>
