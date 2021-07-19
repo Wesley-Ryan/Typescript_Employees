@@ -42,9 +42,10 @@ const useStyles = makeStyles({
 type HeaderProps = {
   setTeam: () => void;
   setAll: () => void;
+  isAdmin: boolean;
 };
 
-const DashboardHeader = ({ setTeam, setAll }: HeaderProps) => {
+const DashboardHeader = ({ setTeam, setAll, isAdmin }: HeaderProps) => {
   const classes = useStyles();
   const history = useHistory();
   const handleAddClick = () => {
@@ -64,13 +65,15 @@ const DashboardHeader = ({ setTeam, setAll }: HeaderProps) => {
           </div>
         </div>
 
-        <Button
-          className={classes.addButton}
-          variant="contained"
-          onClick={() => handleAddClick()}
-        >
-          Add new Employee
-        </Button>
+        {isAdmin && (
+          <Button
+            className={classes.addButton}
+            variant="contained"
+            onClick={() => handleAddClick()}
+          >
+            Add new Employee
+          </Button>
+        )}
       </div>
       <div className={classes.BtnGroup}>
         <Button

@@ -217,7 +217,12 @@ const Dashboard: React.FC = () => {
         </Hidden>
       </nav>
       <main className={classes.content}>
-        <DashboardHeader setTeam={handleTeamClick} setAll={handleAllClick} />
+        <DashboardHeader
+          setTeam={handleTeamClick}
+          setAll={handleAllClick}
+          isAdmin={currentUserInfo?.user.role === 1328}
+        />
+
         {isAllActive && (
           <ul>
             {data.data?.map((employee: Employee) => {

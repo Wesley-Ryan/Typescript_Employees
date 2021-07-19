@@ -85,7 +85,7 @@ const AddNewEmployeeForm: React.FC<AddNewEmployeeFormProps> = () => {
       login_attempts: 0,
       title: "",
       salary: "",
-      role: 1328,
+      role: 3893,
       role_name: "Team Member",
       department_name: dept[1],
       department: parseInt(dept[0]),
