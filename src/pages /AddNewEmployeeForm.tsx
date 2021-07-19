@@ -97,7 +97,7 @@ const AddNewEmployeeForm: React.FC<AddNewEmployeeFormProps> = () => {
       .post("https://nexient-side.herokuapp.com/accounts/signup", newUser)
       .then((response) => {
         console.log(response.data);
-        history.push("/");
+        history.goBack();
       })
       .catch((error) => {
         console.log(error);
@@ -124,6 +124,7 @@ const AddNewEmployeeForm: React.FC<AddNewEmployeeFormProps> = () => {
           <div className={classes.InputGrp}>
             <Input
               name="first_name"
+              type="text"
               control={control}
               label="First Name"
               message="First name cannot be blank."
@@ -131,6 +132,7 @@ const AddNewEmployeeForm: React.FC<AddNewEmployeeFormProps> = () => {
             />
             <Input
               name="last_name"
+              type="text"
               control={control}
               label="Last Name"
               message="Last name cannot be blank."
@@ -167,6 +169,7 @@ const AddNewEmployeeForm: React.FC<AddNewEmployeeFormProps> = () => {
 
             <Input
               name="password"
+              type="password"
               control={control}
               label="Password"
               message="Password cannot be blank."
@@ -254,19 +257,12 @@ const AddNewEmployeeForm: React.FC<AddNewEmployeeFormProps> = () => {
               type="submit"
               variant="contained"
             >
-              Login
+              Add Account
             </Button>
             <Button
               className={classes.btnStyle}
               variant="contained"
-              onClick={() =>
-                reset({
-                  first_name: "",
-                  last_name: "",
-                  email: "",
-                  password: "",
-                })
-              }
+              onClick={() => history.goBack()}
             >
               Cancel
             </Button>

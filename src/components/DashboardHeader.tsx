@@ -85,7 +85,7 @@ const DashboardHeader = ({ setTeam, setAll }: HeaderProps) => {
           variant="contained"
           onClick={() => setTeam()}
         >
-          Team
+          My Team
         </Button>
       </div>
     </>
