@@ -24,7 +24,6 @@ function App() {
             <Register />
           </Route>
           <PrivateRoute exact path="/dashboard/:id" component={Dashboard} />
-
           <PrivateRoute
             exact
             path="/admin/add-employee"
