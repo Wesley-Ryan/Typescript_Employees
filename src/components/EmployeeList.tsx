@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
   engineering: {
     background: "#9033FF",
     color: `#ffffff`,
+    width: "120px",
   },
   sales: {
     background: "#FF9033",
@@ -42,6 +43,9 @@ const useStyles = makeStyles((theme) => ({
   operations: {
     background: "#33A5FF",
     color: `#ffffff`,
+  },
+  chip: {
+    minWidth: "120px",
   },
 }));
 
@@ -139,14 +143,13 @@ const EmployeeList = ({ employee, currentUserRole }: EmployeeListProps) => {
             </Typography>
             <Typography className={classes.column}>
               {employee.last_name}
-              {console.log(window.innerWidth)}
             </Typography>
             {window.innerWidth > 600 ? (
               <>
                 <Typography className={classes.column}>
                   {employee.title ? employee.title : "Profile not complete"}
                 </Typography>
-                {chip}
+                <div className={classes.chip}>{chip}</div>
               </>
             ) : null}
           </div>

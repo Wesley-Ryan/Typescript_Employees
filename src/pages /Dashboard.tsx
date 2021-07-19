@@ -169,7 +169,6 @@ const Dashboard: React.FC = () => {
     <div className={classes.root}>
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
-        {console.log("MY USER", currentUserInfo?.user)}
         <Toolbar>
           <IconButton
             style={{ color: `black` }}
