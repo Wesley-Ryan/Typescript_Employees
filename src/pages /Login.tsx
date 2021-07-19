@@ -46,12 +46,10 @@ const Login: React.FC = () => {
   const classes = useStyles();
 
   const onSubmit = (data: { email: string; password: string }): void => {
-    console.log(data);
     axios
       .post("https://nexient-side.herokuapp.com/accounts/login", data)
       .then((response) => {
         localStorage.setItem("MNTN_Corp", response.data.token);
-        console.log(response.data);
         history.push(`/dashboard/${response.data.id}`);
       })
       .catch((error) => {
@@ -108,7 +106,7 @@ const Login: React.FC = () => {
               <TextField
                 type="password"
                 className={classes.inputStyle}
-                id="input-with-icon-textfield"
+                id="input-with-icon"
                 label="Password"
                 value={value}
                 onChange={onChange}
