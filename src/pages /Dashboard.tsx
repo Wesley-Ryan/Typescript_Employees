@@ -111,7 +111,6 @@ const Dashboard: React.FC = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isAllActive, setIsAllActive] = useState(true);
   const [isTeamActive, setIsTeamActive] = useState(false);
-  const [isDeptActive, setIsDeptActive] = useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -283,6 +282,8 @@ const Dashboard: React.FC = () => {
                     />
                   </>
                 );
+              } else {
+                return null;
               }
             })}
           </ul>
