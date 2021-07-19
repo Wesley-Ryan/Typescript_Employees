@@ -142,7 +142,6 @@ const EmployeeList = ({ employee, currentUserRole }: EmployeeListProps) => {
           </div>
         </AccordionSummary>
         <AccordionDetails>
-          {console.log("USER", currentUserRole)}
           {currentUserRole === 1328 ? (
             <EmployeeDetails employee={employee} />
           ) : (

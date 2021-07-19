@@ -6,6 +6,8 @@ import Login from "./pages /Login";
 import Register from "./pages /Register";
 import Dashboard from "./pages /Dashboard";
 import AddNewEmployeeForm from "./pages /AddNewEmployeeForm";
+import EditEmployeeForm from "./pages /EditEmployeeForm";
+import Company from "./pages /Company";
 const theme = createTheme({
   typography: {
     fontFamily: "Lato, sans-serif",
@@ -29,6 +31,15 @@ function App() {
             path="/admin/add-employee"
             component={AddNewEmployeeForm}
           />
+          <PrivateRoute
+            exact
+            path="/dashboard/current/edit"
+            component={EditEmployeeForm}
+          />
+
+          <Route exact path="/about">
+            <Company />
+          </Route>
         </Switch>
       </ThemeProvider>
     </div>
