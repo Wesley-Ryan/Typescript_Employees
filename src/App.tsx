@@ -8,6 +8,7 @@ import Dashboard from "./pages /Dashboard";
 import AddNewEmployeeForm from "./pages /AddNewEmployeeForm";
 import EditEmployeeForm from "./pages /EditEmployeeForm";
 import Company from "./pages /Company";
+import NoMatch from "./pages /NoMatch";
 const theme = createTheme({
   typography: {
     fontFamily: "Lato, sans-serif",
@@ -39,6 +40,9 @@ function App() {
 
           <Route exact path="/about">
             <Company />
+          </Route>
+          <Route path="*">
+            <NoMatch />
           </Route>
         </Switch>
       </ThemeProvider>
