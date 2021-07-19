@@ -11,9 +11,12 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 import EmployeeDetails from "./EmployeeDetails";
 import EmployeeGeneralDetails from "./EmployeeGeneralDetails";
+import Resize from "../hooks/useResize";
+
 const useStyles = makeStyles((theme) => ({
   container: {
-    width: "95%",
+    width: "98%",
+    padding: "5px",
   },
   panel: {
     width: "100%",
@@ -60,6 +63,8 @@ type EmployeeListProps = {
 
 const EmployeeList = ({ employee, currentUserRole }: EmployeeListProps) => {
   const classes = useStyles();
+  Resize();
+
   let chip = null;
   switch (employee.department) {
     case 100:
@@ -134,11 +139,16 @@ const EmployeeList = ({ employee, currentUserRole }: EmployeeListProps) => {
             </Typography>
             <Typography className={classes.column}>
               {employee.last_name}
+              {console.log(window.innerWidth)}
             </Typography>
-            <Typography className={classes.column}>
-              {employee.title ? employee.title : "Profile not complete"}
-            </Typography>
-            {chip}
+            {window.innerWidth > 600 ? (
+              <>
+                <Typography className={classes.column}>
+                  {employee.title ? employee.title : "Profile not complete"}
+                </Typography>
+                {chip}
+              </>
+            ) : null}
           </div>
         </AccordionSummary>
         <AccordionDetails>

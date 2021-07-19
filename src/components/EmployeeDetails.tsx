@@ -2,6 +2,7 @@ import { makeStyles } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import { axiosAuth } from "../utils/authenticatedAxios";
 import { useHistory } from "react-router-dom";
+import Resize from "../hooks/useResize";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -65,6 +66,7 @@ interface EmployeeDetailsProps {
 }
 
 const EmployeeDetails = ({ employee }: EmployeeDetailsProps) => {
+  Resize();
   const classes = useStyles();
   const history = useHistory();
 
@@ -98,7 +100,10 @@ const EmployeeDetails = ({ employee }: EmployeeDetailsProps) => {
       });
   };
   return (
-    <div className={classes.container}>
+    <div
+      className={classes.container}
+      style={{ flexDirection: window.innerWidth > 650 ? "row" : "column" }}
+    >
       <img
         alt="Employee"
         src={

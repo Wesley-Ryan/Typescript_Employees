@@ -1,9 +1,12 @@
 import { makeStyles } from "@material-ui/core";
+import Resize from "../hooks/useResize";
+
 const useStyles = makeStyles((theme) => ({
   container: {
     width: "100%",
     padding: "0",
     display: "flex",
+    flexDirection: window.innerWidth > 600 ? "row" : "column",
   },
   img: {
     height: "250px",
@@ -56,6 +59,7 @@ export interface EmployeeGeneralDetailsProps {
 const EmployeeGeneralDetails: React.FC<EmployeeGeneralDetailsProps> = ({
   employee,
 }) => {
+  Resize();
   const classes = useStyles();
   return (
     <div className={classes.container}>

@@ -75,6 +75,11 @@ const useStyles = makeStyles((theme) => ({
     height: "40px",
     margin: "15px",
   },
+  main: {
+    width: "100%",
+    margin: "0 auto",
+    padding: "0",
+  },
 }));
 
 type Employee = {
@@ -164,6 +169,7 @@ const Dashboard: React.FC = () => {
     <div className={classes.root}>
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
+        {console.log("MY USER", currentUserInfo?.user)}
         <Toolbar>
           <IconButton
             style={{ color: `black` }}
@@ -224,7 +230,7 @@ const Dashboard: React.FC = () => {
         />
 
         {isAllActive && (
-          <ul>
+          <ul className={classes.main}>
             {data.data?.map((employee: Employee) => {
               const success = {
                 id: employee.id,
