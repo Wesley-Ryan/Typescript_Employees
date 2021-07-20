@@ -53,7 +53,7 @@ const CompanyPage: React.FC = () => {
               textDecoration: "none",
             }}
           >
-            <Button variant="contained">Wesley Ryan</Button>
+            <Button variant="contained">Go To Wesley Ryan</Button>
           </a>
           <Button variant="contained" onClick={() => history.goBack()}>
             Go Back?

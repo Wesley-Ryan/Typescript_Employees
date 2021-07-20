@@ -1,10 +1,9 @@
 import { Paper, Button } from "@material-ui/core";
-import { getCurrentUser } from "../utils/authenticatedAxios";
+import { axiosAuth, getCurrentUser } from "../utils/authenticatedAxios";
 import { useQuery } from "react-query";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
 import Logo from "../assets/Logo.jpeg";
 
@@ -91,47 +90,59 @@ const useStyles = makeStyles({
 });
 
 const EditEmployeeForm: React.FC = () => {
-  const { data, isLoading } = useQuery("currentUser", getCurrentUser);
-  const [avatarImg, setAvatarImg] = useState(data?.user.avatar);
+  const { data: currentUser, isLoading } = useQuery(
+    "currentUser",
+    getCurrentUser
+  );
+  const [avatarImg, setAvatarImg] = useState(currentUser?.user.avatar);
   const history = useHistory();
-
-  const userInfo = {
-    first_name: data?.user.first_name,
-    last_name: data?.user.last_name,
-    title: data?.user.title,
-    salary: data?.user.salary,
-  };
   const { handleSubmit, reset, register, watch } = useForm({
     mode: "onBlur",
     defaultValues: {
-      avatar: data?.user.avatar,
-      email: data?.user.email,
-      first_name: data?.user.first_name,
-      last_name: data?.user.last_name,
-      title: data?.user.title,
-      salary: data?.user.salary,
+      avatar: currentUser?.user.avatar,
+      email: currentUser?.user.email,
+      first_name: currentUser?.user.first_name,
+      last_name: currentUser?.user.last_name,
+      title: currentUser?.user.title,
+      salary: currentUser?.user.salary,
     },
   });
   const classes = useStyles();
   const userAvatar = watch("avatar");
   const onSubmit = (data: {
+    avatar: string;
     first_name: string;
     last_name: string;
+    email: string;
     title: string;
     salary: string;
   }): void => {
     const Updated = {
+      avatar: data.avatar,
       first_name: data.first_name,
       last_name: data.last_name,
+      email: data.email,
       login_attempts: 0,
       title: data.title,
       salary: data.salary,
     };
+    axiosAuth
+      .put(
+        `https://nexient-side.herokuapp.com/company/account/${currentUser.user.id}`,
+        Updated
+      )
+      .then((response) => {
+        history.push(`/dashboard/${currentUser.user.id}`);
+      })
+      .catch((error) => {
+        console.log(error);
+        history.push(`/dashboard/${currentUser.user.id}`);
+      });
 
-    console.log(Updated);
     reset({
       first_name: "",
       last_name: "",
+      email: "",
       title: "",
       salary: "",
     });
@@ -148,9 +159,6 @@ const EditEmployeeForm: React.FC = () => {
   }
   return (
     <div>
-      {console.log(data.user)}
-      {console.log("MY USER", userInfo)}
-      {console.log("AVA", userAvatar)}
       <Paper elevation={3} className={classes.formStyle}>
         <img
           src={Logo}
