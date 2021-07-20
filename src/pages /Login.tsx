@@ -142,20 +142,16 @@ const Login: React.FC = () => {
             <Button
               className={classes.btnStyle}
               variant="contained"
-              onClick={() => reset({ email: "", password: "" })}
+              onClick={() => history.push("/signup")}
             >
-              Cancel
+              Register
             </Button>
           </div>
         </form>
-        <div>
-          <Link to="/signup" style={{ margin: "10px" }}>
-            Sign up
-          </Link>
-          <Link to="/account/rescue" style={{ margin: "10px" }}>
-            Forgot Password?
-          </Link>
-        </div>
+
+        <Link to="/account/rescue" style={{ margin: "10px" }}>
+          Forgot Password?
+        </Link>
       </Paper>
     </div>
   );

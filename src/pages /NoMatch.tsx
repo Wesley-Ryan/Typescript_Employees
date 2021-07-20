@@ -20,7 +20,8 @@ const NoMatch = () => {
       }}
     >
       <img src={ErrorImage} width="50%" alt="404 lost" />
-      <h3>Where are you going? {location.pathname}</h3>
+      <h3>Where are you going?</h3>{" "}
+      <h3> https://mntn-corp.netlify.app{location.pathname} does not exist.</h3>
       <Button
         variant="contained"
         color="secondary"
