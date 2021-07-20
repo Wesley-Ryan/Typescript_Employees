@@ -28,21 +28,26 @@ const useStyles = makeStyles((theme) => ({
     width: "80px",
   },
   it: {
-    background: "#33FFB2",
+    background: "#42b883",
     color: `#ffffff`,
+    fontWeight: "bold",
+    width: "65px",
   },
   engineering: {
     background: "#9033FF",
     color: `#ffffff`,
     width: "120px",
+    fontWeight: "bold",
   },
   sales: {
     background: "#FF9033",
     color: `#ffffff`,
+    fontWeight: "bold",
   },
   operations: {
     background: "#33A5FF",
     color: `#ffffff`,
+    fontWeight: "bold",
   },
   chip: {
     minWidth: "120px",
@@ -114,7 +119,7 @@ const EmployeeList = ({ employee, currentUserRole }: EmployeeListProps) => {
       chip = (
         <Chip
           avatar={
-            <Avatar style={{ background: `#1B89E0`, color: `#ffffff` }}>
+            <Avatar style={{ background: `#24d177`, color: `#ffffff` }}>
               {employee.department}
             </Avatar>
           }
