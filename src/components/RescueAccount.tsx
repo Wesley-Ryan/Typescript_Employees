@@ -53,6 +53,7 @@ const useStyles = makeStyles({
 
 const RescueAccount: React.FC = () => {
   const [helpSent, setHelpSent] = useState(false);
+  const [isEmailSent, setIsEmailSent] = useState(false);
   const [isErrors, setIsErrors] = useState(false);
   const classes = useStyles();
 
@@ -73,10 +74,16 @@ const RescueAccount: React.FC = () => {
                 contact support.
               </p>
             )}
-            <p className={classes.isSuccess}>
-              Success!! Please Login with your new password.
-            </p>{" "}
-            <SetCode setIsErrors={setIsErrors} setHelpSent={setHelpSent} />
+            {isEmailSent && (
+              <p className={classes.isSuccess}>
+                Success!! Please Login with your new password.
+              </p>
+            )}
+            <SetCode
+              setIsErrors={setIsErrors}
+              setIsEmailSent={setIsEmailSent}
+              isEmailSent={isEmailSent}
+            />
           </>
         ) : (
           <>
@@ -86,9 +93,7 @@ const RescueAccount: React.FC = () => {
                 a current account.
               </p>
             )}
-            <p className={classes.isSuccess}>
-              Success!! Please Check you email.
-            </p>{" "}
+
             <SendEmailRescue
               setIsErrors={setIsErrors}
               setHelpSent={setHelpSent}

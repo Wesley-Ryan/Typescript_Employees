@@ -48,7 +48,7 @@ const useStyles = makeStyles({
     color: "#ffffff",
   },
 });
-const SetCode = ({ setHelpSent, setIsErrors }) => {
+const SetCode = ({ setIsErrors, setIsEmailSent, isEmailSent }) => {
   const classes = useStyles();
   const history = useHistory();
   const { handleSubmit, register, reset } = useForm({
@@ -59,21 +59,19 @@ const SetCode = ({ setHelpSent, setIsErrors }) => {
       pinpoint: data.rescue,
       password: data.password,
     };
-    console.log("IM SENDING", ResetAcct);
     axios
       .post(
         "https://nexient-side.herokuapp.com/accounts/account/recovery/challenge",
         ResetAcct
       )
       .then((response) => {
-        setHelpSent(true);
+        setIsEmailSent(true);
         setIsErrors(false);
       })
       .catch((error) => {
         if (error) {
           console.log(error);
           setIsErrors(true);
-          setHelpSent(false);
         }
       });
     reset({
@@ -100,9 +98,19 @@ const SetCode = ({ setHelpSent, setIsErrors }) => {
         />
 
         <div className={classes.BtnGroup}>
-          <Button className={classes.send} type="submit" variant="contained">
-            Send
-          </Button>
+          {isEmailSent ? (
+            <Button
+              className={classes.send}
+              onClick={() => history.push("/")}
+              variant="contained"
+            >
+              Login
+            </Button>
+          ) : (
+            <Button className={classes.send} type="submit" variant="contained">
+              Send
+            </Button>
+          )}
           <Button
             className={classes.btnStyle}
             variant="contained"

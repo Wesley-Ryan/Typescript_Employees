@@ -66,7 +66,6 @@ const SendEmailRescue = ({ setHelpSent, setIsErrors }) => {
         EmailAddress
       )
       .then((response) => {
-        console.log(response);
         setHelpSent(true);
         setIsErrors(false);
       })
@@ -76,8 +75,6 @@ const SendEmailRescue = ({ setHelpSent, setIsErrors }) => {
           setHelpSent(false);
         }
       });
-    console.log(EmailAddress);
-
     reset({
       email: "",
     });
