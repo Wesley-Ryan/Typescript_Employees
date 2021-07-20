@@ -165,6 +165,7 @@ const Register: React.FC = () => {
 
             <Input
               name="password"
+              type="password"
               control={control}
               label="Password"
               message="Password cannot be blank."
@@ -252,19 +253,12 @@ const Register: React.FC = () => {
               type="submit"
               variant="contained"
             >
-              Login
+              Sign Up
             </Button>
             <Button
               className={classes.btnStyle}
               variant="contained"
-              onClick={() =>
-                reset({
-                  first_name: "",
-                  last_name: "",
-                  email: "",
-                  password: "",
-                })
-              }
+              onClick={() => history.push("/")}
             >
               Cancel
             </Button>

@@ -1,7 +1,6 @@
 import { Paper, TextField, InputAdornment, Button } from "@material-ui/core";
 import { useForm, Controller } from "react-hook-form";
-import { useHistory } from "react-router-dom";
-
+import { useHistory, Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Logo from "../assets/Logo.jpeg";
 import { AccountCircle, Lock } from "@material-ui/icons/";
@@ -30,19 +29,28 @@ const useStyles = makeStyles({
     width: "100%",
     display: "flex",
     justifyContent: "space-around",
+    marginBottom: "25px",
   },
   btnStyle: {
-    width: "140px",
+    width: "120px",
+    height: "35px",
   },
   icon: {
     color: "#bfbfbf",
+  },
+
+  modal: {
+    width: "100%",
+    border: "1px solid red",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 
 const Login: React.FC = () => {
   const history = useHistory();
   const { handleSubmit, control, reset } = useForm();
-
   const classes = useStyles();
 
   const onSubmit = (data: { email: string; password: string }): void => {
@@ -140,6 +148,14 @@ const Login: React.FC = () => {
             </Button>
           </div>
         </form>
+        <div>
+          <Link to="/signup" style={{ margin: "10px" }}>
+            Sign up
+          </Link>
+          <Link to="/account/rescue" style={{ margin: "10px" }}>
+            Forgot Password?
+          </Link>
+        </div>
       </Paper>
     </div>
   );

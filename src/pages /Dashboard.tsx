@@ -17,7 +17,6 @@ import ProgressDisplay from "../components/ProgressDisplay";
 import NavList from "../components/NavList";
 import EmployeeList from "../components/EmployeeList";
 import DashboardHeader from "../components/DashboardHeader";
-
 import Logo from "../assets/Logo.jpeg";
 import { useHistory } from "react-router-dom";
 

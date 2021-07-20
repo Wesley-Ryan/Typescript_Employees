@@ -9,6 +9,7 @@ import AddNewEmployeeForm from "./pages /AddNewEmployeeForm";
 import EditEmployeeForm from "./pages /EditEmployeeForm";
 import Company from "./pages /Company";
 import NoMatch from "./pages /NoMatch";
+import RescueAccount from "./components/RescueAccount";
 const theme = createTheme({
   typography: {
     fontFamily: "Lato, sans-serif",
@@ -40,6 +41,9 @@ function App() {
 
           <Route exact path="/about">
             <Company />
+          </Route>
+          <Route exact path="/account/rescue">
+            <RescueAccount />
           </Route>
           <Route path="*">
             <NoMatch />
