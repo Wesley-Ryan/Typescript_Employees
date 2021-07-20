@@ -1,4 +1,4 @@
-import { getEmployees } from "../utils/authenticatedAxios";
+import { getEmployees, getCurrentUser } from "../utils/authenticatedAxios";
 import { useQuery } from "react-query";
 import { useState } from "react";
 import {
@@ -8,16 +8,17 @@ import {
   Hidden,
   IconButton,
   Toolbar,
+  Avatar,
+  Button,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-
 import ProgressDisplay from "../components/ProgressDisplay";
 import NavList from "../components/NavList";
 import EmployeeList from "../components/EmployeeList";
 import DashboardHeader from "../components/DashboardHeader";
-
 import Logo from "../assets/Logo.jpeg";
+import { useHistory } from "react-router-dom";
 
 const drawerWidth = 250;
 
@@ -59,6 +60,25 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     margin: "20px 0 0 0 ",
   },
+  titleBar: {
+    display: "flex",
+    justifyContent: "space-between",
+    width: "100%",
+  },
+  row: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  button: {
+    height: "40px",
+    margin: "15px",
+  },
+  main: {
+    width: "100%",
+    margin: "0 auto",
+    padding: "0",
+  },
 }));
 
 type Employee = {
@@ -79,18 +99,44 @@ type Employee = {
   active: boolean;
 };
 const Dashboard: React.FC = () => {
+  const history = useHistory();
   const { data, isLoading, isError } = useQuery("employees", getEmployees);
+  const { data: currentUserInfo, isLoading: isLoadingCurrentUser } = useQuery(
+    "currentUser",
+    getCurrentUser
+  );
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isAllActive, setIsAllActive] = useState(true);
+  const [isTeamActive, setIsTeamActive] = useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
+  };
+  const handleTeamClick = () => {
+    setIsAllActive(false);
+    setIsTeamActive(true);
+  };
+  const handleAllClick = () => {
+    setIsAllActive(true);
+    setIsTeamActive(false);
+  };
+  const logout = () => {
+    localStorage.removeItem("MNTN_Corp");
+    history.push("/");
   };
 
   const drawer = (
     <div>
       <div className={classes.centered}>
+        <h2>Welcome Back!</h2>
+        <div className={classes.row}>
+          <Avatar src={currentUserInfo?.user.avatar} alt="user-avatar" />
+          <p style={{ marginLeft: `5px` }}>
+            {currentUserInfo?.user.first_name}
+          </p>
+        </div>
         <ProgressDisplay val={75} />
         <p>Complete Your Profile</p>
       </div>
@@ -101,7 +147,7 @@ const Dashboard: React.FC = () => {
 
   const container = window !== undefined ? () => document.body : undefined;
 
-  if (isLoading) {
+  if (isLoadingCurrentUser || isLoading) {
     return (
       <div>
         <h2>LOADING....</h2>
@@ -111,7 +157,8 @@ const Dashboard: React.FC = () => {
   if (isError) {
     return (
       <div>
-        <h2>Error connecting to server. Please login again.</h2>
+        <h2>Error connecting to server. Please refresh or login again.</h2>
+        {history.go(0)}
       </div>
     );
   }
@@ -130,7 +177,17 @@ const Dashboard: React.FC = () => {
           >
             <MenuIcon />
           </IconButton>
-          <img src={Logo} alt="Company Logo" height="80px" />
+          <div className={classes.titleBar}>
+            <img src={Logo} alt="Company Logo" height="80px" />
+            <Button
+              variant="contained"
+              color="secondary"
+              className={classes.button}
+              onClick={() => logout()}
+            >
+              Logout
+            </Button>
+          </div>
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
@@ -163,25 +220,73 @@ const Dashboard: React.FC = () => {
         </Hidden>
       </nav>
       <main className={classes.content}>
-        <DashboardHeader />
-        <ul>
-          {data.data?.map((employee: Employee) => {
-            const success = {
-              id: employee.id,
-              first_name: employee.first_name,
-              last_name: employee.last_name,
-              email: employee.email,
-              avatar: employee.avatar,
-              role_name: employee.role_name,
-              department: employee.department,
-              department_name: employee.department_name,
-              title: employee.title,
-              active: employee.active,
-            };
+        <DashboardHeader
+          setTeam={handleTeamClick}
+          setAll={handleAllClick}
+          isAdmin={currentUserInfo?.user.role === 1328}
+        />
 
-            return <EmployeeList employee={success} key={employee.id} />;
-          })}
-        </ul>
+        {isAllActive && (
+          <ul className={classes.main}>
+            {data.data?.map((employee: Employee) => {
+              const success = {
+                id: employee.id,
+                first_name: employee.first_name,
+                last_name: employee.last_name,
+                email: employee.email,
+                avatar: employee.avatar,
+                role_name: employee.role_name,
+                department: employee.department,
+                department_name: employee.department_name,
+                title: employee.title,
+                active: employee.active,
+              };
+
+              return (
+                <>
+                  <EmployeeList
+                    employee={success}
+                    key={employee.id}
+                    currentUserRole={currentUserInfo?.user.role}
+                  />
+                </>
+              );
+            })}
+          </ul>
+        )}
+
+        {isTeamActive && (
+          <ul>
+            {data.data?.map((employee: Employee) => {
+              if (employee.department === currentUserInfo.user.department) {
+                const success = {
+                  id: employee.id,
+                  first_name: employee.first_name,
+                  last_name: employee.last_name,
+                  email: employee.email,
+                  avatar: employee.avatar,
+                  role_name: employee.role_name,
+                  department: employee.department,
+                  department_name: employee.department_name,
+                  title: employee.title,
+                  active: employee.active,
+                };
+
+                return (
+                  <>
+                    <EmployeeList
+                      employee={success}
+                      key={employee.id}
+                      currentUserRole={currentUserInfo?.user.role}
+                    />
+                  </>
+                );
+              } else {
+                return null;
+              }
+            })}
+          </ul>
+        )}
       </main>
     </div>
   );

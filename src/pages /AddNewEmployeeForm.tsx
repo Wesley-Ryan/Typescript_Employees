@@ -60,7 +60,9 @@ const useStyles = makeStyles({
   checked: {},
 });
 
-const Register: React.FC = () => {
+export interface AddNewEmployeeFormProps {}
+
+const AddNewEmployeeForm: React.FC<AddNewEmployeeFormProps> = () => {
   const history = useHistory();
   const { handleSubmit, control, reset } = useForm();
   const classes = useStyles();
@@ -95,7 +97,7 @@ const Register: React.FC = () => {
       .post("https://nexient-side.herokuapp.com/accounts/signup", newUser)
       .then((response) => {
         console.log(response.data);
-        history.push("/");
+        history.goBack();
       })
       .catch((error) => {
         console.log(error);
@@ -122,6 +124,7 @@ const Register: React.FC = () => {
           <div className={classes.InputGrp}>
             <Input
               name="first_name"
+              type="text"
               control={control}
               label="First Name"
               message="First name cannot be blank."
@@ -129,6 +132,7 @@ const Register: React.FC = () => {
             />
             <Input
               name="last_name"
+              type="text"
               control={control}
               label="Last Name"
               message="Last name cannot be blank."
@@ -253,12 +257,12 @@ const Register: React.FC = () => {
               type="submit"
               variant="contained"
             >
-              Sign Up
+              Add Account
             </Button>
             <Button
               className={classes.btnStyle}
               variant="contained"
-              onClick={() => history.push("/")}
+              onClick={() => history.goBack()}
             >
               Cancel
             </Button>
@@ -269,4 +273,4 @@ const Register: React.FC = () => {
   );
 };
 
-export default Register;
+export default AddNewEmployeeForm;

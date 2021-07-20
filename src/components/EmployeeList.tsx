@@ -1,7 +1,7 @@
 import {
-  ExpansionPanel,
-  ExpansionPanelSummary,
-  ExpansionPanelDetails,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
   Typography,
   Avatar,
   Chip,
@@ -10,9 +10,13 @@ import { makeStyles } from "@material-ui/core/styles";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 import EmployeeDetails from "./EmployeeDetails";
+import EmployeeGeneralDetails from "./EmployeeGeneralDetails";
+import Resize from "../hooks/useResize";
+
 const useStyles = makeStyles((theme) => ({
   container: {
-    width: "95%",
+    width: "98%",
+    padding: "5px",
   },
   panel: {
     width: "100%",
@@ -24,20 +28,29 @@ const useStyles = makeStyles((theme) => ({
     width: "80px",
   },
   it: {
-    background: "#33FFB2",
+    background: "#42b883",
     color: `#ffffff`,
+    fontWeight: "bold",
+    width: "65px",
   },
   engineering: {
     background: "#9033FF",
     color: `#ffffff`,
+    width: "120px",
+    fontWeight: "bold",
   },
   sales: {
     background: "#FF9033",
     color: `#ffffff`,
+    fontWeight: "bold",
   },
   operations: {
     background: "#33A5FF",
     color: `#ffffff`,
+    fontWeight: "bold",
+  },
+  chip: {
+    minWidth: "120px",
   },
 }));
 
@@ -54,9 +67,13 @@ type EmployeeListProps = {
     department_name: string;
     active: boolean;
   };
+  currentUserRole: number;
 };
-const EmployeeList = ({ employee }: EmployeeListProps) => {
+
+const EmployeeList = ({ employee, currentUserRole }: EmployeeListProps) => {
   const classes = useStyles();
+  Resize();
+
   let chip = null;
   switch (employee.department) {
     case 100:
@@ -102,7 +119,7 @@ const EmployeeList = ({ employee }: EmployeeListProps) => {
       chip = (
         <Chip
           avatar={
-            <Avatar style={{ background: `#1B89E0`, color: `#ffffff` }}>
+            <Avatar style={{ background: `#24d177`, color: `#ffffff` }}>
               {employee.department}
             </Avatar>
           }
@@ -114,8 +131,8 @@ const EmployeeList = ({ employee }: EmployeeListProps) => {
   }
   return (
     <>
-      <ExpansionPanel className={classes.container}>
-        <ExpansionPanelSummary expandIcon={<MoreVertIcon />}>
+      <Accordion className={classes.container}>
+        <AccordionSummary expandIcon={<MoreVertIcon />}>
           <div className={classes.panel}>
             <Avatar
               src={
@@ -132,16 +149,24 @@ const EmployeeList = ({ employee }: EmployeeListProps) => {
             <Typography className={classes.column}>
               {employee.last_name}
             </Typography>
-            <Typography className={classes.column}>
-              {employee.title ? employee.title : "Profile not complete"}
-            </Typography>
-            {chip}
+            {window.innerWidth > 600 ? (
+              <>
+                <Typography className={classes.column}>
+                  {employee.title ? employee.title : "Profile not complete"}
+                </Typography>
+                <div className={classes.chip}>{chip}</div>
+              </>
+            ) : null}
           </div>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <EmployeeDetails employee={employee} />
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
+        </AccordionSummary>
+        <AccordionDetails>
+          {currentUserRole === 1328 ? (
+            <EmployeeDetails employee={employee} />
+          ) : (
+            <EmployeeGeneralDetails employee={employee} />
+          )}
+        </AccordionDetails>
+      </Accordion>
     </>
   );
 };

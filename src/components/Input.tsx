@@ -7,6 +7,7 @@ type InputProps = {
   label: string;
   message?: string;
   classStyle?: string;
+  type?: string;
 };
 export function Input({
   control,
@@ -14,6 +15,7 @@ export function Input({
   label,
   message,
   classStyle,
+  type,
 }: InputProps) {
   const {
     field: { ref, ...inputProps },
@@ -30,6 +32,7 @@ export function Input({
   return (
     <TextField
       {...inputProps}
+      type={type}
       inputRef={ref}
       label={label}
       error={!!error}
