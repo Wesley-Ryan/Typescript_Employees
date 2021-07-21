@@ -50,7 +50,7 @@ const useStyles = makeStyles({
     height: "30px",
     margin: "15px",
     alignSelf: "flex-end",
-    background: "#33A5FF",
+    background: "#42b883",
     color: `#ffffff`,
   },
 });
