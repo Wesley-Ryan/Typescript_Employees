@@ -10,7 +10,7 @@ const useStyles = makeStyles({
   formStyle: {
     width: "80%",
     maxWidth: "350px",
-    height: "460px",
+    height: "495px",
     margin: " 0 auto",
     marginTop: "100px",
     display: "flex",
@@ -46,6 +46,13 @@ const useStyles = makeStyles({
     justifyContent: "center",
     alignItems: "center",
   },
+  demo: {
+    height: "30px",
+    margin: "15px",
+    alignSelf: "flex-end",
+    background: "#42b883",
+    color: `#ffffff`,
+  },
 });
 
 const Login: React.FC = () => {
@@ -66,9 +73,32 @@ const Login: React.FC = () => {
     reset({ email: "", password: "" });
   };
 
+  const loginDemo = () => {
+    const demoAccount = {
+      email: "demo@mntnouterwear.com",
+      password: "P@ssword1",
+    };
+    axios
+      .post("https://nexient-side.herokuapp.com/accounts/login", demoAccount)
+      .then((response) => {
+        localStorage.setItem("MNTN_Corp", response.data.token);
+        history.push(`/dashboard/${response.data.id}`);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
   return (
     <div>
       <Paper elevation={3} className={classes.formStyle}>
+        <Button
+          className={classes.demo}
+          variant="contained"
+          onClick={() => loginDemo()}
+        >
+          Demo Login
+        </Button>
         <img
           src={Logo}
           alt="company-logo"
