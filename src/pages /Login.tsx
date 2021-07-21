@@ -10,7 +10,7 @@ const useStyles = makeStyles({
   formStyle: {
     width: "80%",
     maxWidth: "350px",
-    height: "460px",
+    height: "495px",
     margin: " 0 auto",
     marginTop: "100px",
     display: "flex",
