@@ -1,5 +1,5 @@
 import { Paper, Button } from "@material-ui/core";
-import { axiosAuth, getCurrentUser } from "../utils/authenticatedAxios";
+import { axiosAuth } from "../utils/authenticatedAxios";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
