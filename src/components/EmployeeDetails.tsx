@@ -2,7 +2,9 @@ import { makeStyles } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import { axiosAuth } from "../utils/authenticatedAxios";
 import { useHistory } from "react-router-dom";
+import { useState } from "react";
 import Resize from "../hooks/useResize";
+import AdminEmployeeEdit from "../pages /AdminEmployeeEdit";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -48,6 +50,20 @@ const useStyles = makeStyles((theme) => ({
     background: "#42b883",
     color: "#ffffff",
   },
+  edit: {
+    height: "30px",
+    width: "80px",
+    alignSelf: "flex-start",
+    background: "#33A5FF",
+    color: `#ffffff`,
+  },
+  editMobile: {
+    height: "30px",
+    width: "80px",
+    alignSelf: "flex-end",
+    background: "#33A5FF",
+    color: `#ffffff`,
+  },
 }));
 
 interface EmployeeDetailsProps {
@@ -66,6 +82,8 @@ interface EmployeeDetailsProps {
 }
 
 const EmployeeDetails = ({ employee }: EmployeeDetailsProps) => {
+  const [employeeEdit, setEmployeeEdit] = useState({});
+  const [showEdit, isShowEdit] = useState(false);
   Resize();
   const classes = useStyles();
   const history = useHistory();
@@ -99,79 +117,114 @@ const EmployeeDetails = ({ employee }: EmployeeDetailsProps) => {
         history.go(0);
       });
   };
+
+  const handleEmployeeEdit = () => {
+    setEmployeeEdit(employee);
+    isShowEdit((state) => !state);
+    console.log(employee);
+  };
   return (
-    <div
-      className={classes.container}
-      style={{ flexDirection: window.innerWidth > 650 ? "row" : "column" }}
-    >
-      <img
-        alt="Employee"
-        src={
-          employee.avatar
-            ? employee.avatar
-            : "https://ik.imagekit.io/WesleyRyan/social_preview/avatar_8kCbbtDiP.jpeg"
-        }
-        className={classes.img}
-      />
-      <main className={classes.content}>
-        <div className={classes.row}>
-          <span className={classes.title}>ID: </span>
-          <p className={classes.info}>{employee.id}</p>
+    <>
+      {showEdit ? (
+        <AdminEmployeeEdit
+          employeeEdit={employeeEdit}
+          isShowEdit={isShowEdit}
+        />
+      ) : (
+        <div
+          className={classes.container}
+          style={{ flexDirection: window.innerWidth > 650 ? "row" : "column" }}
+        >
+          {window.innerWidth < 650 ? (
+            <Button
+              className={classes.editMobile}
+              variant="contained"
+              onClick={() => handleEmployeeEdit()}
+            >
+              Edit
+            </Button>
+          ) : null}
+          <img
+            alt="Employee"
+            src={
+              employee.avatar
+                ? employee.avatar
+                : "https://ik.imagekit.io/WesleyRyan/social_preview/avatar_8kCbbtDiP.jpeg"
+            }
+            className={classes.img}
+          />
+
+          <main className={classes.content}>
+            <div className={classes.row}>
+              <span className={classes.title}>ID: </span>
+              <p className={classes.info}>{employee.id}</p>
+            </div>
+            <div className={classes.row}>
+              <span className={classes.title}>Title: </span>
+              <p className={classes.info}>
+                {employee.title ? employee.title : "Profile not complete"}
+              </p>
+            </div>
+            <div className={classes.row}>
+              <span className={classes.title}>Name: </span>
+              <p className={classes.info}>
+                {employee.first_name + " " + employee.last_name}
+              </p>
+            </div>
+            <div className={classes.row}>
+              <span className={classes.title}>Email: </span>{" "}
+              <p className={classes.info}>{employee.email}</p>
+            </div>
+            <div className={classes.row}>
+              <span className={classes.title}>Dept: </span>{" "}
+              <p className={classes.info}> {employee.department_name}</p>
+            </div>
+            <div className={classes.row}>
+              <span className={classes.title}>Role: </span>{" "}
+              <p className={classes.info}> {employee.role_name}</p>{" "}
+            </div>
+            <div className={classes.row}>
+              <span className={classes.title}>Status: </span>{" "}
+              <p className={classes.info}>
+                {employee.active ? "Active" : "Inactive"}
+              </p>
+              <span className={classes.title} style={{ marginLeft: `20px` }}>
+                {" "}
+                Locked:{" "}
+              </span>{" "}
+              <p className={classes.info}>Unlocked</p>
+            </div>
+            <div>
+              <Button
+                className={classes.deactivateButton}
+                variant="contained"
+                color="secondary"
+                onClick={() => deactivateUser(employee.id)}
+              >
+                Deactivate Account
+              </Button>
+              <Button
+                className={classes.activateButton}
+                variant="contained"
+                onClick={() => activateUser(employee.id)}
+              >
+                Activate Account
+              </Button>
+            </div>
+          </main>
+
+          {window.innerWidth < 650 ? null : (
+            <Button
+              className={classes.edit}
+              variant="contained"
+              onClick={() => handleEmployeeEdit()}
+            >
+              Edit
+            </Button>
+          )}
         </div>
-        <div className={classes.row}>
-          <span className={classes.title}>Title: </span>
-          <p className={classes.info}>
-            {employee.title ? employee.title : "Profile not complete"}
-          </p>
-        </div>
-        <div className={classes.row}>
-          <span className={classes.title}>Name: </span>
-          <p className={classes.info}>
-            {employee.first_name + " " + employee.last_name}
-          </p>
-        </div>
-        <div className={classes.row}>
-          <span className={classes.title}>Email: </span>{" "}
-          <p className={classes.info}>{employee.email}</p>
-        </div>
-        <div className={classes.row}>
-          <span className={classes.title}>Dept: </span>{" "}
-          <p className={classes.info}> {employee.department_name}</p>
-        </div>
-        <div className={classes.row}>
-          <span className={classes.title}>Role: </span>{" "}
-          <p className={classes.info}> {employee.role_name}</p>{" "}
-        </div>
-        <div className={classes.row}>
-          <span className={classes.title}>Status: </span>{" "}
-          <p className={classes.info}>
-            {employee.active ? "Active" : "Inactive"}
-          </p>
-          <span className={classes.title} style={{ marginLeft: `20px` }}>
-            {" "}
-            Locked:{" "}
-          </span>{" "}
-          <p className={classes.info}>Unlocked</p>
-        </div>
-        <div>
-          <Button
-            className={classes.deactivateButton}
-            variant="contained"
-            color="secondary"
-            onClick={() => deactivateUser(employee.id)}
-          >
-            Deactivate Account
-          </Button>
-          <Button
-            className={classes.activateButton}
-            variant="contained"
-            onClick={() => activateUser(employee.id)}
-          >
-            Activate Account
-          </Button>
-        </div>
-      </main>
-    </div>
+      )}
+    </>
   );
 };
 
